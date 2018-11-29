@@ -10,12 +10,12 @@ unsigned long aktualnyCzas = 0;
 unsigned long zapamietanyCzas = 0;
 unsigned long roznicaCzasu = 0;
  int minuty = 0;
- int godziny = 0;
+ int godziny = 16;
  int sekundy = 0;
- int wloncz =25; 
- int wyloncz = 50;
- int wlonczz =30; 
- int wylonczz = 45;
+ int wloncz =6; 
+ int wyloncz =22;
+ int wlonczz =7; 
+ int wylonczz =21;
 
 const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
@@ -44,7 +44,7 @@ void loop(){
 //tu prubuje nastawiac czas czyli odejmowac np sekundy
   if (sensorVal2 ==LOW){
   if (sekundy >10){
-  sekundy = sekundy -10;
+  sekundy = sekundy -30;
   delay(500);
   }
   }
@@ -60,21 +60,21 @@ Serial.println(sensorVal2);
 
 //tu zeruje zegar
   if (sensorVal == LOW){
-    godziny =0;
+    godziny =16;
     minuty =0;
     sekundy =0;
   }
 //tu pulapki czasowe dla aktywacji przekaznikow
-  if (sekundy==wloncz){
+  if (godziny==wloncz){
   digitalWrite(13,LOW);  
   }
- if (sekundy==wyloncz){
+ if (godziny==wyloncz){
   digitalWrite(13,HIGH);
  }
- if (sekundy==wlonczz){
+ if (godziny==wlonczz){
   digitalWrite(10,LOW);  
   }
- if (sekundy==wylonczz){
+ if (godziny==wylonczz){
   digitalWrite(10,HIGH);
  }
 
