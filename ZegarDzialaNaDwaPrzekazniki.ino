@@ -79,13 +79,13 @@ Serial.println(sensorVal2);
  }
 
   
-   sekundy  = 1 + sekundy;
+   sekundy ++ ;
    if (sekundy == 60){
    minuty = minuty + 1;
     sekundy = 0;
    }
     if (minuty ==60 ){
-     godziny = godziny + 1 ;
+     godziny ++ ;
     minuty = 0;
     }
      if(godziny == 24)   {
