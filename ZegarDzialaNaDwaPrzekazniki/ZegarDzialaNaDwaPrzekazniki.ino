@@ -41,7 +41,8 @@ void setup(){
   digitalWrite(10,HIGH);
 
    myservo.attach(9);  // attaches the servo on pin 9 to the servo object
-  
+      myservo.write(0);              
+
 
 }
  
@@ -85,21 +86,47 @@ Serial.println(sensorVal2);
  if (godziny==wylonczz){
   digitalWrite(10,HIGH);
  }
-if (godziny==serwowloncz && minuty==15)
-{
-  for (serwopozycja = 0; serwopozycja <= 180; serwopozycja += 1) { // goes from 0 degrees to 180 degrees
-    // in steps of 1 degree
-    myservo.write(serwopozycja);              // tell servo to go to position in variable 'serwopozycja'
-    delay(15);                       // waits 15ms for the servo to reach the position
-  }
-  for (serwopozycja = 180; serwopozycja >= 180; serwopozycja -= 1) { // goes from 0 degrees to 180 degrees
-    // in steps of 1 degree
-    myservo.write(serwopozycja);              // tell servo to go to position in variable 'serwopozycja'
-    delay(15);                       // waits 15ms for the servo to reach the position
-  }
-
+ // pułapka dla serwa
+if (godziny==16 && minuty ==15 && sekundy==15){
+    myservo.write(180);              
+     delay(1000);
+    myservo.write(0); 
+    delay(1000);
+    myservo.write(180);              
+     delay(1000);
+    myservo.write(0);
+    delay(1000);
+    myservo.write(180);              
+     delay(1000);
+    myservo.write(0); 
+    delay(1000);
+    myservo.write(180);              
+     delay(1000);
+    myservo.write(0);
+    delay(1000);
 }
-  
+
+if (godziny==10 && minuty ==10 && sekundy==15){
+    myservo.write(180);              
+     delay(1000);
+    myservo.write(0); 
+    delay(1000);
+    myservo.write(180);              
+     delay(1000);
+    myservo.write(0);
+    delay(1000);
+    myservo.write(180);              
+     delay(1000);
+    myservo.write(0); 
+    delay(1000);
+    myservo.write(180);              
+     delay(1000);
+    myservo.write(0);
+    delay(1000);
+}
+
+
+
    sekundy ++ ;
    if (sekundy == 60){
    minuty = minuty + 1;
