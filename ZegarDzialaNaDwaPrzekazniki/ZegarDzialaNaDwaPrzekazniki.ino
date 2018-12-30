@@ -47,15 +47,13 @@ void setup(){
 }
  
 void loop(){
-  int sensorVal = digitalRead(7);
+  int sensorVal = digitalRead(7); //przycisk z masy do pinu 7
   int sensorVal2 = digitalRead(8);
   
 //tu prubuje nastawiac czas czyli odejmowac np sekundy
   if (sensorVal2 ==LOW){
-  if (sekundy >10){
-  sekundy = sekundy -30;
+  godziny += 1;
   delay(500);
-  }
   }
   
   
@@ -63,15 +61,19 @@ void loop(){
  roznicaCzasu =aktualnyCzas -zapamietanyCzas;
  if (roznicaCzasu>=1000UL)
  {
+  Serial.print("godzina: ");
+    Serial.print(godziny);
+  Serial.print(" minut: ");  
+Serial.print(minuty);
+Serial.print(" sekund: ");
+Serial.println(sekundy);
 
-Serial.println(sensorVal);
-Serial.println(sensorVal2);
 
 //tu zeruje zegar
   if (sensorVal == LOW){
-    godziny =16;
-    minuty =0;
-    sekundy =0;
+        godziny =16;
+        minuty =0;
+        sekundy =0;
   }
 //tu pulapki czasowe dla aktywacji przekaznikow
   if (godziny==wloncz){
@@ -87,7 +89,7 @@ Serial.println(sensorVal2);
   digitalWrite(10,HIGH);
  }
  // pułapka dla serwa
-if (godziny==16 && minuty ==15 && sekundy==15){
+if (godziny==16 && minuty ==1 && sekundy==0){
     myservo.write(180);              
      delay(1000);
     myservo.write(0); 
@@ -106,7 +108,7 @@ if (godziny==16 && minuty ==15 && sekundy==15){
     delay(1000);
 }
 
-if (godziny==10 && minuty ==10 && sekundy==15){
+if (godziny==9 && minuty ==1 && sekundy==0){
     myservo.write(180);              
      delay(1000);
     myservo.write(0); 
@@ -164,7 +166,7 @@ if (godziny==10 && minuty ==10 && sekundy==15){
      lcd.print(" -");
      lcd.print(wylonczz);
      
+}     
      
-     
-  }
+  
 }    
