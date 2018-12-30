@@ -30,18 +30,18 @@ LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
  
 void setup(){
+  lcd.begin(16, 2);
   Serial.begin(9600);
   pinMode(7, INPUT_PULLUP);
   pinMode(8, INPUT_PULLUP);
-  
-  lcd.begin(16, 2);
   pinMode(13, OUTPUT);
   pinMode(10, OUTPUT);
   digitalWrite(13,HIGH);
   digitalWrite(10,HIGH);
+   pinMode(LED_BUILTIN, OUTPUT);
 
    myservo.attach(9);  // attaches the servo on pin 9 to the servo object
-      myservo.write(0);              
+   myservo.write(0);    //ustawiam serwo na kąt 0 stopni          
 
 
 }
@@ -61,71 +61,78 @@ void loop(){
  roznicaCzasu =aktualnyCzas -zapamietanyCzas;
  if (roznicaCzasu>=1000UL)
  {
-  Serial.print("godzina: ");
+    Serial.print("godzina: ");
     Serial.print(godziny);
-  Serial.print(" minut: ");  
-Serial.print(minuty);
-Serial.print(" sekund: ");
-Serial.println(sekundy);
+    Serial.print(" : ");  
+    Serial.print(minuty);
+    Serial.print(" : ");
+    Serial.println(sekundy);
+
+      
+       digitalWrite(LED_BUILTIN, HIGH); //dodałem migającą diodę wbudowanaą na płytce
+       delay(50);
+       digitalWrite(LED_BUILTIN,LOW);
+      
+       
 
 
 //tu zeruje zegar
-  if (sensorVal == LOW){
+   if (sensorVal == LOW){
         godziny =16;
         minuty =0;
         sekundy =0;
-  }
+   }
 //tu pulapki czasowe dla aktywacji przekaznikow
-  if (godziny==wloncz){
-  digitalWrite(13,LOW);  
-  }
- if (godziny==wyloncz){
-  digitalWrite(13,HIGH);
- }
- if (godziny==wlonczz){
-  digitalWrite(10,LOW);  
-  }
- if (godziny==wylonczz){
-  digitalWrite(10,HIGH);
- }
+   if (godziny==wloncz){
+      digitalWrite(13,LOW);  
+    }
+   if (godziny==wyloncz){
+      digitalWrite(13,HIGH);
+    }
+   if (godziny==wlonczz){
+      digitalWrite(10,LOW);  
+     }
+    if (godziny==wylonczz){
+        digitalWrite(10,HIGH);
+    }
  // pułapka dla serwa
-if (godziny==16 && minuty ==1 && sekundy==0){
-    myservo.write(180);              
+  if (godziny==16 && minuty ==1 && sekundy==0){
+     myservo.write(180);              
      delay(1000);
-    myservo.write(0); 
-    delay(1000);
-    myservo.write(180);              
+     myservo.write(0); 
      delay(1000);
-    myservo.write(0);
-    delay(1000);
-    myservo.write(180);              
+     myservo.write(180);              
      delay(1000);
-    myservo.write(0); 
-    delay(1000);
-    myservo.write(180);              
+     myservo.write(0);
      delay(1000);
-    myservo.write(0);
-    delay(1000);
-}
+     myservo.write(180);              
+     delay(1000);
+     myservo.write(0); 
+     delay(1000);
+     myservo.write(180);              
+     delay(1000);
+     myservo.write(0);
+     delay(1000);
+    }
 
-if (godziny==9 && minuty ==1 && sekundy==0){
-    myservo.write(180);              
+  if (godziny==16 && minuty ==30 && sekundy==0){
+     myservo.write(180);              
      delay(1000);
-    myservo.write(0); 
-    delay(1000);
-    myservo.write(180);              
+     myservo.write(0); 
      delay(1000);
-    myservo.write(0);
-    delay(1000);
-    myservo.write(180);              
+     myservo.write(180);              
      delay(1000);
-    myservo.write(0); 
-    delay(1000);
-    myservo.write(180);              
+     myservo.write(0);
      delay(1000);
-    myservo.write(0);
-    delay(1000);
-}
+     myservo.write(180);              
+     delay(1000);
+     myservo.write(0); 
+     delay(1000);
+     myservo.write(180);              
+     delay(1000);
+     myservo.write(0);
+     delay(1000);
+    }
 
 
 
