@@ -70,13 +70,13 @@ void loop(){
   }
    if (sensorVal == LOW)
    {
-        if (minuty<1)
-        if (godziny>0)
-        {
+        if (minuty>0)
+        minuty--;
+        else
+       {
           godziny--;
-          minuty=0;
+          minuty=59;
         }
-        else minuty--;
         delay(500);
    }
   
