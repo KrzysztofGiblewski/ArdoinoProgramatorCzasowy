@@ -22,7 +22,7 @@ unsigned long roznicaCzasu = 0;
  int wlonczKarm2 =16;
   int serwopozycja =0;
  int serwowloncz=16;
- int ilosc=3;     //ile karmy podac ile razy "posolić"
+ int ilosc=3;     //ile karmy podac ile razy posypać
 
  Servo myservo;  // create servo object to control a servo
 
@@ -150,9 +150,9 @@ void loop(){
      godziny = 0;
     }
  
-     zapamietanyCzas = aktualnyCzas;
-     
-    lcd.clear();
+     zapamietanyCzas = aktualnyCzas; 
+ 
+    lcd.setCursor(0,0);
     if (godziny <10)
     lcd.print(0);
     lcd.print(godziny);
@@ -163,26 +163,28 @@ void loop(){
     lcd.print(":");
     if (sekundy <10)
     lcd.print(0);
-     lcd.print(sekundy);
+    lcd.print(sekundy);
+         lcd.print(" Karmie ");
 
-     lcd.setCursor(0,2);
-     //lcd.print("-");
-    // lcd.print(wloncz);
-    // lcd.print("+");
-   //  lcd.print(wyloncz);
-   //  lcd.print(" +");
-    // lcd.print(wlonczz);
-  //   lcd.print(" -");
- //    lcd.print(wylonczz);
-     lcd.print("Karm o ");
+      lcd.setCursor(0,1);
+//     lcd.print(" ");
+//     lcd.print(wloncz);
+//     lcd.print("+");
+//     lcd.print(wyloncz);
+//     lcd.print(" +");
+//     lcd.print(wlonczz);
+//     lcd.print(" -");
+//     lcd.print(wylonczz);
+     lcd.print("o ");
      lcd.print(wlonczKarm1);
      lcd.print(" i o ");
      lcd.print(wlonczKarm2);
-     lcd.print(" * ");
+     lcd.print(" po ");
      lcd.print(ilosc);
-     
-     
-}     
-     
+     lcd.print(" porcje");
+    
+
   
-}    
+ }
+ 
+ }    
