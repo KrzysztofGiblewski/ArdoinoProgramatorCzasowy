@@ -7,18 +7,22 @@
 
 
 
+
 unsigned long aktualnyCzas = 0;
 unsigned long zapamietanyCzas = 0;
 unsigned long roznicaCzasu = 0;
- int minuty = 0;
+ int minuty = 15;
  int godziny = 16;
  int sekundy = 0;
  int wloncz =6; 
  int wyloncz =22;
  int wlonczz =7; 
  int wylonczz =21;
- int serwopozycja =0;
+ int wlonczKarm1 =9;
+ int wlonczKarm2 =16;
+  int serwopozycja =0;
  int serwowloncz=16;
+ int ilosc=3;     //ile karmy podac ile razy "posolić"
 
  Servo myservo;  // create servo object to control a servo
 
@@ -38,10 +42,10 @@ void setup(){
   pinMode(10, OUTPUT);
   digitalWrite(13,HIGH);
   digitalWrite(10,HIGH);
-   pinMode(LED_BUILTIN, OUTPUT);
+   pinMode(LED_BUILTIN, OUTPUT);               //wbudowana dioda led na plytce
 
-   myservo.attach(9);  // attaches the servo on pin 9 to the servo object
-   myservo.write(0);    //ustawiam serwo na kąt 0 stopni          
+   myservo.attach(9);  //  pin 9 sygnal dla serwa servo 
+   myservo.write(0);    //  ustawiam serwo na kąt 0 stopni          
 
 
 }
@@ -50,11 +54,31 @@ void loop(){
   int sensorVal = digitalRead(7); //przycisk z masy do pinu 7
   int sensorVal2 = digitalRead(8);
   
-//tu prubuje nastawiac czas czyli odejmowac np sekundy
-  if (sensorVal2 ==LOW){
-  godziny += 1;
-  delay(500);
+//tu prubuje nastawiac czas dodaje 15 min a drugim przyciskiem odejmuje 1 min
+  if (sensorVal2 ==LOW)
+  {
+     if (minuty>45)
+      {
+       minuty= (minuty+15)-60;
+        if (godziny<24)
+          godziny+=1;
+        else
+          godziny=1; 
+      }
+     else minuty+=15;
+     delay(500);
   }
+   if (sensorVal == LOW)
+   {
+        if (minuty<1)
+        if (godziny>0)
+        {
+          godziny--;
+          minuty=0;
+        }
+        else minuty--;
+        delay(500);
+   }
   
   
  aktualnyCzas = millis(); //Pobierz liczbe milisekund od startu
@@ -76,12 +100,6 @@ void loop(){
        
 
 
-//tu zeruje zegar
-   if (sensorVal == LOW){
-        godziny =16;
-        minuty =0;
-        sekundy =0;
-   }
 //tu pulapki czasowe dla aktywacji przekaznikow
    if (godziny==wloncz){
       digitalWrite(13,LOW);  
@@ -96,60 +114,44 @@ void loop(){
         digitalWrite(10,HIGH);
     }
  // pułapka dla serwa
-  if (godziny==16 && minuty ==1 && sekundy==0){
+  if (godziny==wlonczKarm1 && minuty ==0 && sekundy==10)
+    for(int i=0; i<ilosc; i++)
+    {
      myservo.write(180);              
      delay(1000);
      myservo.write(0); 
-     delay(1000);
-     myservo.write(180);              
-     delay(1000);
-     myservo.write(0);
-     delay(1000);
-     myservo.write(180);              
-     delay(1000);
-     myservo.write(0); 
-     delay(1000);
-     myservo.write(180);              
-     delay(1000);
-     myservo.write(0);
      delay(1000);
     }
 
-  if (godziny==16 && minuty ==30 && sekundy==0){
+  if (godziny==wlonczKarm2 && minuty ==0 && sekundy==10)
+    for(int i=0; i<ilosc; i++)
+    {
      myservo.write(180);              
      delay(1000);
      myservo.write(0); 
-     delay(1000);
-     myservo.write(180);              
-     delay(1000);
-     myservo.write(0);
-     delay(1000);
-     myservo.write(180);              
-     delay(1000);
-     myservo.write(0); 
-     delay(1000);
-     myservo.write(180);              
-     delay(1000);
-     myservo.write(0);
      delay(1000);
     }
 
 
 
    sekundy ++ ;
-   if (sekundy == 60){
-   minuty = minuty + 1;
+   if (sekundy == 60)
+   {
+    minuty++;
     sekundy = 0;
    }
-    if (minuty ==60 ){
+    if (minuty ==60 )
+    {
      godziny ++ ;
-    minuty = 0;
+     minuty = 0;
     }
-     if(godziny == 24)   {
+     if(godziny == 24)  
+    {
      godziny = 0;
-     }
+    }
  
      zapamietanyCzas = aktualnyCzas;
+     
     lcd.clear();
     if (godziny <10)
     lcd.print(0);
@@ -164,14 +166,21 @@ void loop(){
      lcd.print(sekundy);
 
      lcd.setCursor(0,2);
-     lcd.print("+");
-     lcd.print(wloncz);
-     lcd.print(" -");
-     lcd.print(wyloncz);
-     lcd.print(" +");
-     lcd.print(wlonczz);
-     lcd.print(" -");
-     lcd.print(wylonczz);
+     //lcd.print("-");
+    // lcd.print(wloncz);
+    // lcd.print("+");
+   //  lcd.print(wyloncz);
+   //  lcd.print(" +");
+    // lcd.print(wlonczz);
+  //   lcd.print(" -");
+ //    lcd.print(wylonczz);
+     lcd.print("Karm o ");
+     lcd.print(wlonczKarm1);
+     lcd.print(" i o ");
+     lcd.print(wlonczKarm2);
+     lcd.print(" * ");
+     lcd.print(ilosc);
+     
      
 }     
      
