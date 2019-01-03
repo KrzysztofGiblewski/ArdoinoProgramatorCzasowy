@@ -54,7 +54,7 @@ void loop(){
   int sensorVal = digitalRead(7); //przycisk z masy do pinu 7
   int sensorVal2 = digitalRead(8);
   
-//tu prubuje nastawiac czas dodaje 15 min a drugim przyciskiem odejmuje 1 min
+//tu prubuje nastawiac czas dodaje 15 min a drugim przyciskiem odejmuje 1 min a dwa 
   if (sensorVal2 ==LOW)
   {
      if (minuty>45)
@@ -79,7 +79,7 @@ void loop(){
         }
         delay(500);
    }
-  
+     
   
  aktualnyCzas = millis(); //Pobierz liczbe milisekund od startu
  roznicaCzasu =aktualnyCzas -zapamietanyCzas;
@@ -114,23 +114,17 @@ void loop(){
         digitalWrite(10,HIGH);
     }
  // pułapka dla serwa
-  if (godziny==wlonczKarm1 && minuty ==0 && sekundy==10)
+  if (godziny==wlonczKarm1||wlonczKarm2 && minuty ==0 && sekundy==10)
     for(int i=0; i<ilosc; i++)
     {
      myservo.write(180);              
      delay(1000);
      myservo.write(0); 
      delay(1000);
+     sekundy+=2;
     }
 
-  if (godziny==wlonczKarm2 && minuty ==0 && sekundy==10)
-    for(int i=0; i<ilosc; i++)
-    {
-     myservo.write(180);              
-     delay(1000);
-     myservo.write(0); 
-     delay(1000);
-    }
+ 
 
 
 
@@ -164,9 +158,9 @@ void loop(){
     if (sekundy <10)
     lcd.print(0);
     lcd.print(sekundy);
-         lcd.print(" Karmie ");
+    lcd.print(" Karmie ");
 
-      lcd.setCursor(0,1);
+    lcd.setCursor(0,1);
 //     lcd.print(" ");
 //     lcd.print(wloncz);
 //     lcd.print("+");
@@ -179,10 +173,10 @@ void loop(){
      lcd.print(wlonczKarm1);
      lcd.print(" i o ");
      lcd.print(wlonczKarm2);
-     lcd.print(" po ");
+     lcd.print(" *");
      lcd.print(ilosc);
-     lcd.print(" porcje");
-    
+      lcd.print("syp");
+     
 
   
  }
