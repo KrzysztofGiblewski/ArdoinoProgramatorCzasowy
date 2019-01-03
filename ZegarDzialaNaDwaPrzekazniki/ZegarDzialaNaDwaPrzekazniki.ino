@@ -11,7 +11,7 @@
 unsigned long aktualnyCzas = 0;
 unsigned long zapamietanyCzas = 0;
 unsigned long roznicaCzasu = 0;
- int minuty = 15;
+ int minuty = 5;
  int godziny = 16;
  int sekundy = 0;
  int wloncz =6; 
@@ -114,7 +114,7 @@ void loop(){
         digitalWrite(10,HIGH);
     }
  // pułapka dla serwa
-  if (godziny==wlonczKarm1||wlonczKarm2 && minuty ==0 && sekundy==10)
+  if (godziny==wlonczKarm1 && minuty ==0 && sekundy==0)
     for(int i=0; i<ilosc; i++)
     {
      myservo.write(180);              
@@ -124,7 +124,15 @@ void loop(){
      sekundy+=2;
     }
 
- 
+  if (godziny==wlonczKarm2 && minuty ==0 && sekundy==0)
+    for(int i=0; i<ilosc; i++)
+    {
+     myservo.write(180);              
+     delay(1000);
+     myservo.write(0); 
+     delay(1000);
+     sekundy+=2;
+    }
 
 
 
